@@ -1,0 +1,12 @@
+
+{
+    "compilerOptions": {
+      // "paths": {
+      //   "@/*": ["src/*"],
+      //   "axios/*": ["node_modules/axios/*"]
+      },
+  
+      "baseUrl": "./src",
+      "checkJs": true,
+      "jsx": "react"
+    }
