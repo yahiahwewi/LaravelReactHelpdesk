@@ -7,6 +7,7 @@ import Users from "./views/Users";
 import DefaultLayout from "./components/DefaultLayout";
 import GuestLayout from "./components/guestLayout";
 import Dashboard from "./views/Dashboard";
+import Navbar from "./components/Navbar";
 
 
 const router = createBrowserRouter([
@@ -16,18 +17,24 @@ const router = createBrowserRouter([
         path:'/',
         element : <DefaultLayout/>,
         children: [
+            // {
+
+            //     path :'/',
+            //         element:<Navigate to="/users"/>
+    
+            //     },
             {
 
             path :'/',
-                element:<Navigate to="/users"/>
+                element:<Navigate to="/dashboard"/>
 
             },
 
-            {
-                path:'/users',
-                element : <Users/>
+            // {
+            //     path:'/users',
+            //     element : <Users/>
         
-                },
+            //     },
                 {
                     path:'/dashboard',
                     element : <Dashboard/>
@@ -45,6 +52,14 @@ const router = createBrowserRouter([
             path:'/',
             element : <GuestLayout/>,
             children :[
+
+                {
+   
+                    path:'/',
+                    element : <Navbar/>
+                    
+                    
+                    },
                 {
    
                     path:'/login',

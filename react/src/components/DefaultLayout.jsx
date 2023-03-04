@@ -1,6 +1,9 @@
 import { useStateContext } from '../contexts/ContextProvider'
 import React from 'react'
 import { Link, Navigate, Outlet } from 'react-router-dom'
+import axiosClient from '../axios-client';
+import {useEffect} from "react";
+import Navbar from './Navbar';
 
 export default function defaultLayout() {
   const {user, token, setUser, setToken, notification} = useStateContext();
@@ -9,18 +12,43 @@ if(!token){
 
   return <Navigate to ="/login"/>
 }
+
+
+// -------------bring user deatils ---------------- 
+useEffect(() => {
+  axiosClient.get('/user')
+    .then(({data}) => {
+       setUser(data)
+    })
+}, [])
+
+
+
+
 const onLogout = (ev) => {
-ev.preventDefault()
+  ev.preventDefault()
+
+
+  axiosClient.post('/logout')
+    .then(() => {
+      setUser({})
+      setToken(null)
+    })
+
 }
   
   return (
+
+
+    
     <div className='text-center'>
+    {/* <Navbar/> */}
+    <Navbar/>
     <aside>
-    <p>{user.name}</p>
-    <h1 className='p-6 text-left'>Logout</h1>
-    <a href="#" onClick={onLogout}></a>
-      <Link to="/dashboard">Dashboard</Link>
-      <Link to="/dashboard">.................Users</Link>
+    
+  {/* <a  onClick={onLogout} className="btn-logout bg-black" href="#">Logout</a> */}
+          
+  
 
     </aside>
     <Outlet/>

@@ -1,5 +1,6 @@
 import axios from "axios"
 
+
 const axiosClient = axios.create({
 // baseURL : `${import.meta.env.VITE_API_BASE_URL}`
 // baseURL : `http://127.0.0.1:8000/api`
@@ -23,14 +24,19 @@ return response;
 
 },(error)=>{
 const{response}=error;
-if(response.status===401){
+if (response.status === 401) {
+    localStorage.removeItem('ACCESS_TOKEN')
+    console.log("removed !!!!!!!!");
+    // window.location.reload();
+  } else if (response.status === 404) {
+    console.log("erorrrrrrrr !");  }
 
-localStorage.removeItem('ACCESS_TOKEN')
+  throw error;
 
-}
 
-throw error;
-
+  },
+  axiosClient.setCookie = () => {
+    return axios.get('/set-cookie');
 
 })
 

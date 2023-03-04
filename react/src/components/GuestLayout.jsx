@@ -18,7 +18,7 @@ return <Navigate to ='/'/>
     <div>
 
 {/* <div className="flex flex-col items-center justify-center min-h-screen bg-[url('https://wallpaperaccess.com/full/5781536.jpg')]"> */}
-<p>for guest users only</p>
+{/* <p>for guest users only</p> */}
 
     
     <Outlet/>
