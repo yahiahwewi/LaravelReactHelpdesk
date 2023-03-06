@@ -8,21 +8,34 @@ import DefaultLayout from "./components/DefaultLayout";
 import GuestLayout from "./components/guestLayout";
 import Dashboard from "./views/Dashboard";
 import Navbar from "./components/Navbar";
+import EditDetails from "./views/EditDetails";
 
 
 const router = createBrowserRouter([
 
 
+// {
+// path: '/',
+// element:<Dashboard/>,
+// children:[
+// {
+// path:'/edit',
+// element : <EditDetails/>
+// }],
+
+
+// },
+
     {
         path:'/',
         element : <DefaultLayout/>,
         children: [
-            // {
 
-            //     path :'/',
-            //         element:<Navigate to="/users"/>
-    
-            //     },
+
+            {
+                path:'/edit',
+                element : <EditDetails/>
+                },
             {
 
             path :'/',
