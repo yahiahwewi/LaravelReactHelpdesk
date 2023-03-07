@@ -55,15 +55,7 @@ if(response && response.status==500){
 
 
 })
-  // setnoErrors(true);
-  // setErrors(!setErrors);
 
-
-
-// if(response && response.status==200){
-//   setErrors(!setErrors);
-
-// }
 
   };
 
