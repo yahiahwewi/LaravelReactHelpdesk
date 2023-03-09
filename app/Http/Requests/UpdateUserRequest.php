@@ -22,15 +22,25 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return  [
+        return [
             'name' => 'required|string|max:55',
             'email' => 'required|email|unique:users,email,'.$this->id,
             'password' => [
                 'confirmed',
                 Password::min(8)
-                    ->letters()
-                    ->symbols(),
+                    ->letters(),
+                    
             ]
         ];
+
+                // 'company_name' => 'string|max:255',
+                // 'phone' => 'numeric',
+                // 'street' => 'string|max:255',
+                // 'city' => 'string|max:255',
+                // 'postal_code' => 'required|numeric',
+                // 'country' => 'string|max:255',
+    
+            
+        
     }
 }

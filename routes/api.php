@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Resources\UserResource;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,7 @@ use App\Http\Controllers\Api\UserController;
 // });
 // Route::post('/signup', [AuthController::class, 'signup']);
 // Route::post('/login', [AuthController::class, 'login']);
+Route::middleware('auth:sanctum')->put('/users/{user}', [UserController::class, 'update']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -29,8 +32,26 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
-    Route::apiResource('/users', UserController::class);
+Route::Resource('/users', UserController::class);
+
+
 });
 
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);
+
+
+// for postman test 
+Route::get('/users', function () {
+    return UserResource::collection(User::all());
+});
+
+
+Route::get('/user/{id}', function ($id) {
+    return new UserResource(User::findOrFail($id));
+});
+
+// Route::put('/users/{user}', [UserController::class, 'update']);
+// Route::get('/user', function (Request $request) {
+//     return $request->user();
+// });

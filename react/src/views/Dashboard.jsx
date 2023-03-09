@@ -21,6 +21,12 @@ useEffect(() => {
        setUser(data)
     })
 }, [])
+
+console.log(user);
+console.log(token);
+
+
+
   return (
     <div>
 <div className="bg-[url('https://wallpaperaccess.com/full/5781536.jpg')] ">
@@ -38,7 +44,6 @@ useEffect(() => {
 <div className="flex justify-start md:justify-between mr-4 mt-7 ml-6">
 
 {/* -------------block 1----------------- */}
-
 <div  className=" m-16 block  p-8 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
 
     <p className=" text-xl font-bold tracking-tight text-gray-900 dark:text-white">Assistance :</p>

@@ -2,11 +2,9 @@ import axios from "axios"
 
 
 const axiosClient = axios.create({
-// baseURL : `${import.meta.env.VITE_API_BASE_URL}`
-// baseURL : `http://127.0.0.1:8000/api`
+
 baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`
 
-// baseURL: "http://localhost:8000"
 
 });
 
@@ -22,14 +20,16 @@ axiosClient.interceptors.response.use((response)=>{
 return response;
 
 
-},(error)=>{
+},
+
+(error)=>{
 const{response}=error;
 if (response.status === 401) {
     localStorage.removeItem('ACCESS_TOKEN')
     console.log("removed !!!!!!!!");
     // window.location.reload();
   } else if (response.status === 404) {
-    console.log("erorrrrrrrr !");  }
+    console.log(error);  }
 
   throw error;
 
