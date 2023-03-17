@@ -9,6 +9,8 @@ import GuestLayout from "./components/guestLayout";
 import Dashboard from "./views/Dashboard";
 import Navbar from "./components/Navbar";
 import EditDetails from "./views/EditDetails";
+import EditPwd from "./views/EditPwd";
+import Footer from "./views/Footer";
 
 
 const router = createBrowserRouter([
@@ -30,8 +32,11 @@ const router = createBrowserRouter([
         path:'/',
         element : <DefaultLayout/>,
         children: [
-
-
+          
+            {
+                path:'/password',
+                element : <EditPwd/>
+                },
             {
                 path:'/edit',
                 element : <EditDetails/>
@@ -65,7 +70,10 @@ const router = createBrowserRouter([
             path:'/',
             element : <GuestLayout/>,
             children :[
-
+                {
+                    path:'/',
+                    element : <Footer/>
+                    },
                 {
    
                     path:'/',

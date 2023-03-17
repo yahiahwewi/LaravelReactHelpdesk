@@ -3,6 +3,7 @@ import axiosClient from "../axios-client.js";
 import {createRef} from "react";
 import {useStateContext} from "../contexts/ContextProvider.jsx";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function Login() {
 
@@ -30,9 +31,40 @@ export default function Login() {
       })
       .catch((err) => {
         const response = err.response;
+        // if (response && response.status === 422) {
+        //   setErrors(response.data.errors);
+        // }
+
+        // if (!user.email || !user.password) {
+        //   toast.error('Veuillez remplir tous les champs.', {
+        //     position: "top-center",
+        //     autoClose: 5000,
+        //     hideProgressBar: true,
+        //     closeOnClick: true,
+        //     pauseOnHover: true,
+        //     draggable: true,
+        //     progress: undefined,
+        //     theme: "light",
+        //   });
+        //   return
+        // }
         if (response && response.status === 422) {
-          setErrors(response.data.errors);
+          toast.error("Veuillez vérifier vos informations et réessayer", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+
+
+          return;     
+        
         }
+      
 
 
 
@@ -43,10 +75,12 @@ export default function Login() {
 
 
       <div className="flex flex-col items-center justify-center min-h-screen bg-[url('https://wallpaperaccess.com/full/5781536.jpg')]">
+        <ToastContainer/>
+
         <div className="bg-white w-96  p-14 rounded-lg shadow-lg">
           <h1 className="text-2xl font-bold mb-4 text-center ">S'authentifier :</h1>
           <br />
-          {errors && (
+          {/* {errors && (
         <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 flex" role="alert">
           <div>
             {Object.keys(errors).map(key => (
@@ -62,7 +96,7 @@ export default function Login() {
       
         </div>
 
-    )}
+    )} */}
 
 
 <br />
@@ -70,11 +104,11 @@ export default function Login() {
     <form onSubmit={onSubmit} className="space-y-4">
       <div className="space-y-1 ">
         <label className="block font-medium" htmlFor="email" >E-mail</label>
-        <input ref={emailRef} className="w-full px-4 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300" id="email" type="email" placeholder="Email"/>
+        <input required ref={emailRef} className="w-full px-4 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300" id="email" type="email" placeholder="Email"/>
       </div>
       <div className="space-y-1">
         <label className="block font-medium" htmlFor="password">Mot de passe</label>
-        <input ref={passwordRef} className="w-full px-4 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300" id="password" type="password" placeholder="Mot de passe"/>
+        <input required ref={passwordRef} className="w-full px-4 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300" id="password" type="password" placeholder="Mot de passe"/>
       </div>
 
       <div className="flex justify-center mt-8">

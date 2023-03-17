@@ -30,16 +30,17 @@ class UpdateUserRequest extends FormRequest
                 Password::min(8)
                     ->letters(),
                     
-            ]
+            ],
+            'company_name' => 'string|max:255',
+            'phone' => 'numeric',
+            'street' => 'string|max:255',
+            'city' => 'string|max:255',
+            'postal_code' => 'string',
+            'country' => 'string|max:255',
+
         ];
 
-                // 'company_name' => 'string|max:255',
-                // 'phone' => 'numeric',
-                // 'street' => 'string|max:255',
-                // 'city' => 'string|max:255',
-                // 'postal_code' => 'required|numeric',
-                // 'country' => 'string|max:255',
-    
+             
             
         
     }

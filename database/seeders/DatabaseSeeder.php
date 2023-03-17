@@ -18,6 +18,13 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         //     'password' => bcrypt('password'),
+        //     'company_name'=>'99999',
+        //     'phone'=>'9999999999',
+        //     'street'=>'9999999999',
+        //     'city'=>'9999999999',
+        //     'postal_code'=>'9999999999',
+        //     'country'=>'9999999999',
+
         // ]);
     }   
 

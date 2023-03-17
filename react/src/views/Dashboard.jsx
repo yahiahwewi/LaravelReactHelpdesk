@@ -132,7 +132,7 @@ console.log(token);
 <div>
 <h5 className="flex justify-start mt-6 mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Sécurité du compte</h5>
 <hr className=" bg-black border-2 mb-6"/>
-<Link to="editpwd">
+<Link to="/password">
 <p className='m'>Éditer les configurations de sécurité</p>
 
 </Link>

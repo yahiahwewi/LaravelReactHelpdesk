@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify';
 import axiosClient from '../axios-client';
 import { useStateContext } from '../contexts/ContextProvider';
 
@@ -51,6 +52,52 @@ if(response && response.status==500){
 
 }
 
+const specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+
+// Check if name is less than 5 characters or contains special characters
+if (name.trim().length < 5 || specialChars.test(name)) {
+  toast.error('Le nom doit contenir au moins 5 caractères et ne doit pas contenir de caractères spéciaux.', {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+  return;
+}
+
+if (user.password !== user.password_confirmation) {
+  toast.error('Les mots de passe ne correspondent pas',
+   {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+              });
+
+  // setErrors('Les mots de passe ne correspondent pas.')
+  return
+}
+if (!/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/.test(user.password) || !/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/.test(user.password_confirmation)) {
+  toast.error('Le mot de passe doit contenir au moins un chiffre', {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+  return;
+}
 
 
 
@@ -66,7 +113,10 @@ if(response && response.status==500){
   return (
 
 
+    
    <div >
+           <ToastContainer/>
+
     <div className="flex flex-col items-center justify-center min-h-screen bg-[url('https://wallpaperaccess.com/full/5781536.jpg')]">
   <div className="bg-white w-96  p-14 rounded-lg shadow-lg mt-2">
     {/* <img src='\logo.png' alt="logo" className="mx-auto mb-4" /> */}
@@ -83,7 +133,7 @@ if(response && response.status==500){
   </div>
 )} */}
 
-{errors && (
+{/* {errors && (
   <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-2 flex" role="alert">
     <div>
       {Object.keys(errors).map(key => (
@@ -91,7 +141,7 @@ if(response && response.status==500){
       ))}
     </div>
   </div>
-)}
+)} */}
 {noerrors && (
   <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 flex" role="alert">
     <div>
@@ -119,19 +169,19 @@ if(response && response.status==500){
       
       <div className="space-y-1 ">
         <label className="block font-medium" htmlFor="email" >Nom complet</label>
-        <input ref={nameRef}  className="w-full px-4 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300"  type="name" placeholder="Nom complet"/>
+        <input required ref={nameRef}  className="w-full px-4 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300"  type="name" placeholder="Nom complet"/>
       </div>
       <div className="space-y-1 ">
         <label className="block font-medium" htmlFor="email" >E-mail</label>
-        <input ref={emailRef} className="w-full px-4 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300"  type="email" placeholder="Email"/>
+        <input required ref={emailRef} className="w-full px-4 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300"  type="email" placeholder="Email"/>
       </div>
       <div className="space-y-1 ">
         <label className="block font-medium" htmlFor="email" >Mot de passe :</label>
-        <input ref={passwordRef} className="w-full px-4 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300"  type="password" placeholder="Mot de passe"/>
+        <input required ref={passwordRef} className="w-full px-4 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300"  type="password" placeholder="Mot de passe"/>
       </div>
       <div className="space-y-1">
         <label className="block font-medium">Confirmer mot de passe :</label>
-        <input ref={passwordConfirmationRef}  className="w-full px-4 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300"  type="password" placeholder="Confirmer mot de passe"/>
+        <input required ref={passwordConfirmationRef}  className="w-full px-4 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300"  type="password" placeholder="Confirmer mot de passe"/>
       </div>
 
 
