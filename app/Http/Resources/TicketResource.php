@@ -5,9 +5,10 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class TicketResource extends JsonResource
 {
     public static $wrap = false;
+
 
     /**
      * Transform the resource into an array.
@@ -17,14 +18,17 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         // return parent::toArray($request);
+
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'created_at' => $this->created_at,
-            'country' => $this->country,
-
-            
+            'subject' => $this->subject,
+            'user_id' => $this->user_id,
+            'title' => $this->title,
+            'description' => $this->description,
+            // 'photo' => $this->photo,
+            // 'created_at' => $this->created_at,
+            // 'updated_at' => $this->updated_at,
         ];
+
     }
 }

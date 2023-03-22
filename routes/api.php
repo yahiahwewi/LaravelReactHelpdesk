@@ -4,8 +4,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\TicketController;
+use App\Http\Resources\TicketResource;
+
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Models\Ticket;
+
+use App\Http\Controllers\Api;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +30,7 @@ use App\Models\User;
 // });
 // Route::post('/signup', [AuthController::class, 'signup']);
 // Route::post('/login', [AuthController::class, 'login']);
-Route::middleware('auth:sanctum')->put('/users/{user}', [UserController::class, 'update']);
+// Route::middleware('auth:sanctum')->put('/users/{user}', [UserController::class, 'update']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -55,3 +61,16 @@ Route::get('/user/{id}', function ($id) {
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+// Route::get('/tickets', 'TicketController@index');
+
+// Route::post('/tickets', function () {
+//     return TicketResource::collection(Ticket::all());
+// });
+
+// Route::post('/tickets', function (Illuminate\Http\Request $request) {
+//     return response()->json($request->all());
+// });
+
+Route::post('/tickets', [TicketController::class, 'store']);
+Route::get('/ticketss', [TicketController::class, 'show']);

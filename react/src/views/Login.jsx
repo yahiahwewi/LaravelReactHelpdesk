@@ -31,23 +31,7 @@ export default function Login() {
       })
       .catch((err) => {
         const response = err.response;
-        // if (response && response.status === 422) {
-        //   setErrors(response.data.errors);
-        // }
 
-        // if (!user.email || !user.password) {
-        //   toast.error('Veuillez remplir tous les champs.', {
-        //     position: "top-center",
-        //     autoClose: 5000,
-        //     hideProgressBar: true,
-        //     closeOnClick: true,
-        //     pauseOnHover: true,
-        //     draggable: true,
-        //     progress: undefined,
-        //     theme: "light",
-        //   });
-        //   return
-        // }
         if (response && response.status === 422) {
           toast.error("Veuillez vérifier vos informations et réessayer", {
             position: "top-center",

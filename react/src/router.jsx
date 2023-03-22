@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar";
 import EditDetails from "./views/EditDetails";
 import EditPwd from "./views/EditPwd";
 import Footer from "./views/Footer";
+import Form from "./views/Form";
 
 
 const router = createBrowserRouter([
@@ -32,7 +33,10 @@ const router = createBrowserRouter([
         path:'/',
         element : <DefaultLayout/>,
         children: [
-          
+            {
+                path:'/form',
+                element : <Form/>
+                },
             {
                 path:'/password',
                 element : <EditPwd/>

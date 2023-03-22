@@ -64,7 +64,7 @@ if (name.trim().length < 5 || specialChars.test(name)) {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: "light",
+    theme: "light", 
   });
   return;
 }
