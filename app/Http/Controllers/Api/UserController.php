@@ -53,17 +53,20 @@ class UserController extends Controller
      * @param \App\Models\User                     $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request)
     {
+        $user = auth()->user();
         $data = $request->validated();
+    
         if (isset($data['password'])) {
             $data['password'] = bcrypt($data['password']);
         }
+    
         $user->update($data);
-
+    
         return new UserResource($user);
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *

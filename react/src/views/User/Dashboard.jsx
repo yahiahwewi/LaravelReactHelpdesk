@@ -1,34 +1,41 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import {useEffect} from "react";
-import { useStateContext } from '../contexts/ContextProvider';
-import axiosClient from '../axios-client';
+import { useStateContext } from '../../contexts/ContextProvider';
+import axiosClient from '../../axios-client';
+import { useState } from 'react';
 
 
-// const name="Houaoui Yahya"
-// const email ="yahiahwewi@gmail.com"
-  // const {user, token, setUser, setToken, notification} = useStateContext();
 
 export default function Dashboard() {
-  const {user, token, setUser, setToken, notification} = useStateContext();
+  const [isLoading, setIsLoading] = useState(true);
+  const {user,  setUser} = useStateContext();
+
+  const [tickets, setTickets] = useState(['']);
+  
+  useEffect(() => {
+    setIsLoading(true);
+    axiosClient.get(`/userTickets`)
+      .then(({ data }) => {
+        setTickets(data.tickets);
+        setIsLoading(false);
+        
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+      });
+  }, []);
+  
 
 
-  // -------------get user details ---------------- 
-useEffect(() => {
-  axiosClient.get('/user')
-    .then(({data}) => {
-       setUser(data)
-    })
-}, [])
-
-console.log(user);
-console.log(token);
 
 
 
   return (
     <div>
+    
 <div className="bg-[url('https://wallpaperaccess.com/full/5781536.jpg')] ">
 
 {/* <Header/> */}
@@ -41,15 +48,17 @@ console.log(token);
 
 
 
-<div className="flex justify-start md:justify-between mr-4 mt-7 ml-6">
+<div className="flex justify-start md:justify-between mr-4  ml-6">
 
 {/* -------------block 1----------------- */}
-<div  className=" m-16 block  p-8 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+
+<div  className=" m-16 block h-full p-8 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
 
     <p className=" text-xl font-bold tracking-tight text-gray-900 dark:text-white">Assistance :</p>
    
    
     <div className="items-center ">
+    <Link >
     <a href="#" className=" mt-2 block p-2  border-2  rounded-lg  hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">Ajouter un ticket
 
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlSpace="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enableBackground="new 0 0 1000 1000" xml:xmlspace="preserve">
@@ -57,6 +66,7 @@ console.log(token);
 <g><path d="M500,990c-66.1,0-130.3-13-190.7-38.5c-58.4-24.7-110.8-60-155.7-105c-45-45-80.3-97.4-105-155.7C23,630.3,10,566.1,10,500s13-130.3,38.5-190.7c24.7-58.4,60-110.8,105-155.7c45-45,97.4-80.3,155.7-105C369.7,23,433.9,10,500,10c66.1,0,130.3,13,190.7,38.5c58.4,24.7,110.8,60,155.7,105c45,45,80.3,97.4,105,155.7C977,369.7,990,433.9,990,500c0,66.1-13,130.3-38.5,190.7c-24.7,58.4-60,110.8-105,155.7c-45,45-97.4,80.3-155.7,105C630.3,977,566.1,990,500,990z M500,52.6C253.3,52.6,52.6,253.3,52.6,500c0,246.7,200.7,447.4,447.4,447.4c246.7,0,447.4-200.7,447.4-447.4S746.7,52.6,500,52.6z"/><path d="M580.2,356.9H354.9c-11.9,0-21.6-9.7-21.6-21.7c0-12,9.7-21.7,21.6-21.7h225.3c11.9,0,21.6,9.7,21.6,21.7C601.8,347.2,592.1,356.9,580.2,356.9z M580.2,529.1H354.9c-11.9,0-21.6-9.7-21.6-21.7c0-12,9.7-21.7,21.6-21.7h225.3c11.9,0,21.6,9.7,21.6,21.7C601.8,519.4,592.1,529.1,580.2,529.1z M477.8,621.8H355c-11.9,0-21.6-9.7-21.6-21.7c0-12,9.6-21.7,21.6-21.7h122.8c11.9,0,21.6,9.7,21.6,21.7S489.7,621.8,477.8,621.8z M551.1,449.7H354.9c-11.9,0-21.6-9.7-21.6-21.7c0-12,9.7-21.7,21.6-21.7h196.2c11.9,0,21.6,9.7,21.6,21.7C572.7,439.9,563,449.7,551.1,449.7z"/><path d="M663.1,618.3v109.2H307.7V276h355.4v200.4l37.7-32.7V241H270v521.5h430.8V589L663.1,618.3L663.1,618.3z M738.6,427.4l-24,21.7l51.4,46.6l24-21.8L738.6,427.4L738.6,427.4z M592.3,559.8l51.4,46.5l116.7-105.7L709,454.2L592.3,559.8z M634.8,614.5L583.4,568l-5.6,5.1l-14.5,59.6l65.9-13.1L634.8,614.5z"/></g>
 </svg>
 </a>
+</Link>
     <a href="#" className="mt-2  block p-4  border-2  rounded-lg  hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">Live chat
 
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlSpace="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enableBackground="new 0 0 1000 1000" xml:xmlspace="preserve">
@@ -67,28 +77,43 @@ console.log(token);
 
 </div>
 
+
 <div  className="flex-1 h-136 m-16 block  p-8 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
 
 
 
 
-<p className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Mes tickets :</p>
-<a href="#" className="mb-4 block p-4 bg-purple-200 border border-gray-200 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 relative">
-  ticket 1
-  <small className="absolute top-0 right-0 px-2 py-1 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 ">24/03/2023</small>
+  <p className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Mes tickets :</p>
+  <div className="">
+  {isLoading && <p className="pt-12 flex justify-center items-center h-full text-2xl font-bold text-gray-700 dark:text-white">Chargement...</p>}
+    {!isLoading && (
+      <div>
+      {tickets?.length === 0 ? (
 
+<h1 className="text-2xl mt-16 text-center ">Vous n'avez pas de tickets <br/><a className=' text-green-600' href="#"><Link to="/form"> Ajouter un ticket</Link></a></h1>
+
+
+) : (
+tickets.map(ticket => (
+ <a
+  key={ticket.id}
+  href={`/tickets/${ticket.id}`}
+  className="mb-4 block p-4 bg-purple-200 border border-gray-200 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 relative"
+>
+
+  {ticket.title}
+  <small className="absolute top-0 right-0 px-2 py-1 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    {new Date(ticket.created_at).toLocaleDateString()}
+  </small>
 </a>
+))
+)} 
 
-<a href="#" className=" block p-4 bg-purple-200 border border-gray-200 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 relative">
-  ticket 1
-  <small className="absolute top-0 right-0 px-2 py-1 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 ">24/03/2023</small>
+      </div>
+    )}
+</div>
 
-</a>
-<a href="#" className="mt-4 block p-4 bg-purple-200 border border-gray-200 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 relative">
-  ticket 1
-  <small className="absolute top-0 right-0 px-2 py-1 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 ">24/03/2023</small>
 
-</a>
 
 
 
@@ -98,7 +123,7 @@ console.log(token);
 
 {/* -------------block 2 ----------------- */}
 
-<div  className=" flex-1  h-116 m-16 block max-w-sm p-8 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+<div  className=" flex-1 h-96 m-16 block max-w-sm p-8 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
 
 <div className="flex justify-start">
 <h5 className="flex justify-start mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Détails</h5>

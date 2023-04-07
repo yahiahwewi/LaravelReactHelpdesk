@@ -8,7 +8,7 @@ import Navbar from './Navbar';
 export default function defaultLayout() {
   const {user, token, setUser, setToken, notification} = useStateContext();
 
-if(!token){
+if(!token ){
 
   return <Navigate to ="/login"/>
 }
@@ -41,7 +41,7 @@ const onLogout = (ev) => {
 
 
     
-    <div className='text-center'>
+    <div className=''>
     {/* <Navbar/> */}
     <Navbar/>
     <aside>

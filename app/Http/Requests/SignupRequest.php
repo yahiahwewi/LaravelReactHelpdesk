@@ -31,6 +31,9 @@ class SignupRequest extends FormRequest
                 Password::min(8)
                     ->letters()
                     ->numbers()
-            ]
+            ],
+            'poste' => ['nullable', 'string'],
+            'role' => ['nullable', 'boolean'],
+        
         ];    }
 }

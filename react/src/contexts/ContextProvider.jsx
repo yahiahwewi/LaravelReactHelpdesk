@@ -1,25 +1,14 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import React from 'react';
-// const cors = require("cors");
-// app.use(cors);
-// const StateContext = createContext({
 
-//         user:null,
-//         token:null,
-//         setUser:()=>{},
-//         setToken:()=>{}
-
-
-
-
-// })
 const StateContext = createContext({
     currentUser: null,
     token: null,
     notification: null,
     setUser: () => {},
     setToken: () => {},
-    setNotification: () => {}
+    setNotification: () => {},
+    role:null
   })
 
 
@@ -39,7 +28,9 @@ export const ContextProvider = ({children})=>{
             localStorage.removeItem('ACCESS_TOKEN');
         }
 
-    } 
+    }
+
+    
 
     const setNotification = message => {
         _setNotification(message);
@@ -55,9 +46,9 @@ export const ContextProvider = ({children})=>{
             token,
             setUser,
             setToken,
-            setToken,
             notification,
             setNotification
+            
             
         }}>
             {children}

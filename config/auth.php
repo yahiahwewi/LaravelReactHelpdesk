@@ -40,6 +40,17 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+    
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
+        ],
+    
+        'support' => [
+            'driver' => 'session',
+            'provider' => 'support',
+        ],
     ],
 
     /*
@@ -64,13 +75,12 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+    
+        'support' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Support::class,
+        ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Resetting Passwords
@@ -97,7 +107,15 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'support' => [
+            'provider' => 'support',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
     ],
+    
+    
 
     /*
     |--------------------------------------------------------------------------

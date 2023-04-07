@@ -1,19 +1,14 @@
 import {React , Component, useEffect, useState} from 'react'
 import { Link, useParams } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
-import axiosClient from '../axios-client';
-import { useStateContext } from '../contexts/ContextProvider';
+import axiosClient from '../../axios-client';
+import { useStateContext } from '../../contexts/ContextProvider';
 
 export default function EditDetails() {
-  const [loading, setLoading] = useState(false)
-  const {setNotification} = useStateContext()
-  const [errors, setErrors] = useState(false)
 
   const [user, setUser] = useState({
     name: '',
     email: '',
-    // password: '',
-    // password_confirmation: ''
      company_name: '',
      phone : '',
       street :'',
@@ -26,7 +21,6 @@ export default function EditDetails() {
     useEffect(() => {
     
 
-      // setLoading(true)
       axiosClient.get(`/user`)
         .then(({data}) => {
           // setLoading(false)
@@ -39,9 +33,8 @@ export default function EditDetails() {
     
 
     const onSubmit = ev => {
-      console.log('aaaaa')
       ev.preventDefault()
-        axiosClient.put(`/users/${user.id}`, user)
+        axiosClient.put(`/user`, user)
           .then(() => {
             toast.success('Votre profil a été mis à jour', {
               position: "top-center",
@@ -58,7 +51,6 @@ export default function EditDetails() {
           })
           .catch(err => {
             const response = err.response;
-            // console.log(response);
 
             if (response && response.status === 422) {
               // toast.error("Veuillez vérifier vos informations et réessayer", {

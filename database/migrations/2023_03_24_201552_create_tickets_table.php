@@ -15,9 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('name');
-            $table->text('description');
+
+            $table->string('description');
+            // $table->enum('priority', ['low', 'medium', 'high']);
+            $table->unsignedBigInteger('user_id');
+            $table->string('photo')->nullable();
             $table->timestamps();
-                });
+            // $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+
+        });
     }
 
     /**

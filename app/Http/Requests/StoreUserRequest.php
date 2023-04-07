@@ -38,6 +38,9 @@ class StoreUserRequest extends FormRequest
             'city' => 'string|max:255',
             'postal_code' => 'required|numeric',
             'country' => 'string|max:255',
+            'poste' => 'string',
+            'role' => 'boolean',
+
         
         ];
         

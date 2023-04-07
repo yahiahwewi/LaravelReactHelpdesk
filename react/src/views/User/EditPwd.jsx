@@ -1,16 +1,12 @@
 
-
-
 import {React , Component, useEffect, useState} from 'react'
 import { Link, useParams } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
-import axiosClient from '../axios-client';
-import { useStateContext } from '../contexts/ContextProvider';
+import axiosClient from '../../axios-client';
+import { useStateContext } from '../../contexts/ContextProvider';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function EditPwd() {
-  const [loading, setLoading] = useState(false)
-  const {setNotification} = useStateContext()
   const [errors, setErrors] = useState(false)
 
   const [user, setUser] = useState({
@@ -21,16 +17,11 @@ export default function EditPwd() {
   })
 
     useEffect(() => {
-    
-
-      // setLoading(true)
       axiosClient.get(`/user`)
         .then(({data}) => {
-          // setLoading(false)
           setUser(data)
         })
         .catch(() => {
-          // setLoading(false)
         })
     }, [])
     
@@ -78,7 +69,7 @@ export default function EditPwd() {
       
       
 
-      axiosClient.put(`/users/${user.id}`, user)
+      axiosClient.put(`/user`, user)
         .then(() => {
           // setNotification('User was successfully updated')
           toast.success('Votre mot de passe a été mis à jour', {
@@ -115,9 +106,9 @@ export default function EditPwd() {
     <form required onSubmit={onSubmit} className="bg-white p-20 rounded-lg shadow-lg relative">
     <Link to="/dashboard" />
     <a href='/' className="absolute top-4 left-4">
-    <svg fill="#68ea39" height="50px" width="50px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-98.62 -98.62 416.39 416.39" xml:space="preserve" stroke="#68ea39">
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+    <svg fill="#68ea39" height="50px" width="50px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="-98.62 -98.62 416.39 416.39" xmlSpace="preserve" stroke="#68ea39">
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
         <g>
           <path d="M109.576,219.151c60.419,0,109.573-49.156,109.573-109.576C219.149,49.156,169.995,0,109.576,0S0.002,49.156,0.002,109.575 C0.002,169.995,49.157,219.151,109.576,219.151z M109.576,15c52.148,0,94.573,42.426,94.574,94.575 c0,52.149-42.425,94.575-94.574,94.576c-52.148-0.001-94.573-42.427-94.573-94.577C15.003,57.427,57.428,15,109.576,15z"></path>

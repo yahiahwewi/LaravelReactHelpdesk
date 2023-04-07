@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
-import axiosClient from "../axios-client.js";
+import axiosClient from '../../axios-client';
 import {createRef} from "react";
-import {useStateContext} from "../contexts/ContextProvider.jsx";
+import { useStateContext } from '../../contexts/ContextProvider';
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -10,10 +10,6 @@ export default function Login() {
   const emailRef = createRef()
   const passwordRef = createRef()
   const { setUser, setToken } = useStateContext()
-  // const [message, setMessage] = useState(null)
-  const [errors, setErrors] = useState(null);
-  // const [pwderrors, setpwdErrors] = useState(null);
-  const [errors2, setErrors2] = useState(null);
 
   const onSubmit = ev => {
     ev.preventDefault()
@@ -26,7 +22,6 @@ export default function Login() {
       .then(({data}) => {
         setUser(data.user)
         setToken(data.token);
-
 
       })
       .catch((err) => {
@@ -58,29 +53,31 @@ export default function Login() {
   return (
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
       <div className="flex flex-col items-center justify-center min-h-screen bg-[url('https://wallpaperaccess.com/full/5781536.jpg')]">
         <ToastContainer/>
 
         <div className="bg-white w-96  p-14 rounded-lg shadow-lg">
           <h1 className="text-2xl font-bold mb-4 text-center ">S'authentifier :</h1>
           <br />
-          {/* {errors && (
-        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 flex" role="alert">
-          <div>
-            {Object.keys(errors).map(key => (
-              <p key={key}>{errors[key][0]}</p>
-            )
-            )}
-            
-          
-
-      </div>
-
-
-      
-        </div>
-
-    )} */}
+       
 
 
 <br />
@@ -105,9 +102,7 @@ export default function Login() {
 <Link to="/Signup">
 <p className="text-center	">Vous n'avez pas de compte ?</p>
 </Link>
-{/* <Link to="/reset">
-<p className= "ml-2 text-center">Réinitialiser le mot de passe </p>
-</Link> */}
+
     </div>
     
     </form>

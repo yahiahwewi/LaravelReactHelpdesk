@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify';
-import axiosClient from '../axios-client';
-import { useStateContext } from '../contexts/ContextProvider';
+import axiosClient from '../../axios-client';
+import { useStateContext } from '../../contexts/ContextProvider';
 
 export default function Signup() {
 const nameRef = useRef();
@@ -19,23 +19,24 @@ const {setUser, setToken} = useStateContext();
       name: nameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
-      password_confirmation: passwordConfirmationRef.current.value
+      password_confirmation: passwordConfirmationRef.current.value,
+      poste: "Client",
+      role:true,
 
     }
-console.log(payload);
 
 axiosClient.post('/signup', payload)
 .then(({data})=>{
 
   setUser(data.user)
   setToken(data.token);
-// setUser(user.token),
-// setToken(data.token);
-if (response.status === 200) {
-  setTimeout(() => {
-    setnoErrors(true);
-  }, 2000);
-}
+  console.log(user.id)
+
+// if (response.status === 200) {
+//   setTimeout(() => {
+//     setnoErrors(true);
+//   }, 2000);
+// }
 
 }).catch(err=>{
   console.log(err)
@@ -124,24 +125,7 @@ if (!/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/.test(user.password) || !/^(?=.*[a-zA-Z])(?=
 <div>
 
 
- {/* NO ERROR FOUND  */}
-
-{/* {noerrors && (
-  <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 flex" role="alert">
-    <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
-    <p className="text-green-900">Inscription réussie</p>
-  </div>
-)} */}
-
-{/* {errors && (
-  <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-2 flex" role="alert">
-    <div>
-      {Object.keys(errors).map(key => (
-        <p key={key}>{errors[key][0]}</p>
-      ))}
-    </div>
-  </div>
-)} */}
+ 
 {noerrors && (
   <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 flex" role="alert">
     <div>
@@ -152,15 +136,6 @@ if (!/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/.test(user.password) || !/^(?=.*[a-zA-Z])(?=
 
 
 
-{/* {errors && (
-  <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 flex" role="alert">
-    <div>
-      {Object.keys(errors).map(key => (
-        <p key={key}>{errors[key][0]}</p>
-      ))}
-    </div>
-  </div>
-)} */}
 
 </div>
 
@@ -188,33 +163,19 @@ if (!/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/.test(user.password) || !/^(?=.*[a-zA-Z])(?=
 
 
       <div className="flex justify-center mr-2">
-        {/* <Link  to="/user"> */}
           <button type="submit" className=" bg-fuchsia-600	 inline-flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white  hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">S'inscrire</button>
-        {/* </Link> */}
 
-
-       
+     
       </div>
-
-
       <br />
       <div className="flex justify-center ">
 <Link to="/login">
 <p className="text-center	">Déja membre ?</p>
 </Link>
-
     </div>
-    
     </form>
   </div>
-
-
-
   <br />
-
-
-
-
 </div>
 </div>
   )

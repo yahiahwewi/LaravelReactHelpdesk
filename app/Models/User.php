@@ -27,6 +27,8 @@ class User extends Authenticatable
         'city',
         'postal_code',
         'country',
+        'poste',
+        'role'
     ];
 
     /**
@@ -46,5 +48,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'role' => 'boolean'
+
     ];
 }

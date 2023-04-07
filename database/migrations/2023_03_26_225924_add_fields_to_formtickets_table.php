@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tickets', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
+        Schema::table('formticket', function (Blueprint $table) {
             $table->string('name');
+            $table->string('email');
+            $table->string('subject');
             $table->text('description');
-            $table->timestamps();
-                });
+            $table->string('file_name')->nullable();
+        });
     }
 
     /**
@@ -25,6 +25,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tickets');
+        Schema::table('formticket', function (Blueprint $table) {
+            //
+        });
     }
 };
