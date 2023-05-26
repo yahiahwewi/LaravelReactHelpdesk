@@ -40,17 +40,12 @@ export default function Form() {
     }
   
     const formData = new FormData();
-    // formData.append('step','Nouveau');
+    formData.append('step','NOUVEAU');
     formData.append('name', nameRef.current.value);
     formData.append('title', titleRef.current.value);
     formData.append('description', descriptionRef.current.value);
     formData.append('user_id', user.id);
 
-    // formData.append('priority', 'n/a');
-    // formData.append('step', 'n/a');
-
-    // formData.append('photo', selectedFile);
-    // formData.append('team', "Service Clientèle");
 
     if (selectedFile && !selectedFile.type.startsWith('image/')) {
       toast.error('Le fichier doit être une image', {
@@ -93,19 +88,34 @@ export default function Form() {
     };
 
   return (
+<div className='bg-gray-200 flex flex-col items-center justify-center min-h-screen'>
 
 
-
-<form onSubmit={handleSubmit} className="bg-gray-200 flex flex-col items-center justify-center min-h-screen ">
+<form onSubmit={handleSubmit} className="mt-4 mb-4">
 
         <ToastContainer/>
 
 <div className="bg-white w-auto p-20 rounded-lg shadow-lg mt-2 relative">
-      <a href='/' className="absolute top-4 left-4">
-<Link to="/dashboard" />
-    <svg fill="#68ea39" height="50px" width="50px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="-98.62 -98.62 416.39 416.39" xmlSpace="preserve" stroke="#68ea39">
-      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+<Link to="/dashboard">
+  <a href="/" className="absolute top-2 left-4">
+    <svg
+      fill="#68ea39"
+      height="50px"
+      width="50px"
+      version="1.1"
+      id="Capa_1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      viewBox="-98.62 -98.62 416.39 416.39"
+      xml:space="preserve"
+      stroke="#68ea39"
+    >
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></g>
       <g id="SVGRepo_iconCarrier">
         <g>
           <path d="M109.576,219.151c60.419,0,109.573-49.156,109.573-109.576C219.149,49.156,169.995,0,109.576,0S0.002,49.156,0.002,109.575 C0.002,169.995,49.157,219.151,109.576,219.151z M109.576,15c52.148,0,94.573,42.426,94.574,94.575 c0,52.149-42.425,94.575-94.574,94.576c-52.148-0.001-94.573-42.427-94.573-94.577C15.003,57.427,57.428,15,109.576,15z"></path>
@@ -113,10 +123,11 @@ export default function Form() {
         </g>
       </g>
     </svg>
-  <Link/>
   </a>
+</Link>
 
-    <h1 className="text-2xl font-bold mb-2 text-center">Ajouter un ticket</h1>
+
+    <h1 className="text-2xl font-bold  p-6 text-center">Ajouter un ticket</h1>
     <div className="space-y-4">
     <div className="flex flex-col space-y-1">
 
@@ -133,7 +144,7 @@ export default function Form() {
  </div>
       <div className="flex flex-col space-y-1">
    
-        <label htmlFor="name" className="font-medium">Name:</label>
+        <label htmlFor="name" className="font-medium">Nom Complet:</label>
         <input 
           ref={nameRef} 
           type="text"
@@ -147,7 +158,7 @@ export default function Form() {
       </div>
 
       <div className="flex flex-col space-y-1">
-        <label htmlFor="title" className="font-medium">Title:</label>
+        <label htmlFor="title" className="font-medium">Titre:</label>
         <input 
           ref={titleRef} 
           type="text"
@@ -177,7 +188,7 @@ export default function Form() {
 
 
       <div className="flex flex-col space-y-1">
-        <label htmlFor="photo" className="font-medium">Upload Photo:</label>
+        <label htmlFor="photo" className="font-medium">Piéce jointe:</label>
         <input 
           type="file" 
           onChange={(e) => setSelectedFile(e.target.files[0])} 
@@ -190,7 +201,7 @@ export default function Form() {
           type="submit" 
           className="bg-fuchsia-600 inline-flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
-          Submit
+          Ajouter
         </button>
       </div>
     </div>
@@ -198,7 +209,7 @@ export default function Form() {
 </form>
 
   
- 
+</div>
  
 
 

@@ -23,7 +23,17 @@ import AdminDashboard from "./views/Support/AdminDashboard";
 
 import SupportTicketEdit from "./views/Support/ListeTicketsSupport";
 import EditTicketSupport from "./views/Support/EditTicketSupport";
-import Teams from "./views/Support/Teams";
+import Teams from "./views/Support/AddTeam";
+import TeamList from "./views/Support/TeamList";
+import SupportList from "./views/Support/SupportList";
+import AddSupport from "./views/Support/AddSupport";
+import UsersList from "./views/Support/UsersList";
+import Access from "./views/Support/Access";
+import ShowTeam from "./views/Support/ShowTeam";
+import EditTeam from "./views/Support/EditTeam";
+import ShowSupport from "./views/Support/ShowSupport";
+import EditSupport from "./views/Support/EditSupport";
+
 // import AdminContextProvider from "./contexts/AdminContextProvider";
 
 // import AdminLayout from "./components/AdminLayout";
@@ -66,9 +76,45 @@ const router = createBrowserRouter([
         element : <DefaultLayout/>,
         children: [
 
+          {
+            path: '/editsupport/:id',
+            element: <EditSupport/>
+          },
+
+
+          {
+            path: '/showsupport/:id',
+            element: <ShowSupport/>
+          },
+          {
+            path: '/editteam/:id',
+            element: <EditTeam/>
+          },
+          {
+            path: '/showteam/:id',
+            element: <ShowTeam/>
+          },
+
+          
+          {
+            path: '/accesscontroller',
+            element: <Access/>
+          },
+          {
+            path: '/userslist',
+            element: <UsersList/>
+          },
             {
-                path: '/teams',
-                element: <Teams/>
+                path: '/addsupport',
+                element: <AddSupport/>
+              },
+            {
+                path: '/support',
+                element: <SupportList/>
+              },
+            {
+                path: '/teamlist',
+                element: <TeamList/>
               },
           
             {

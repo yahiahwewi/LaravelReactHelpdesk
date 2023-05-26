@@ -11,7 +11,7 @@ class Team extends Model
 
     protected $table = 'teams';
     protected $primaryKey = 'id';
-    protected $fillable = ['title', 'description' ,'email' ] ;
+    protected $fillable = ['title', 'description' ,'email', 'created_at'];
 
     use HasFactory;
     public function tickets()

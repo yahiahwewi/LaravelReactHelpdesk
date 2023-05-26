@@ -15,6 +15,27 @@ use Illuminate\Support\Facades\DB;
 class CommentController extends Controller
 {
 
+
+    public function getCommentsByUserAndTicket( $ticketId)
+    {
+        $comments = Comment::where('ticket_id', $ticketId)
+                            ->with('user')
+                            ->get();
+                            
+        return response()->json($comments);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
     public function getPhoto($filename)
     {
         $path = storage_path('app/public/comments/' . $filename);

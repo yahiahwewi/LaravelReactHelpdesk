@@ -112,6 +112,7 @@ public function index()
                         }
         return response()->json($ticket);
     }
+    
 
     public function getTickets(Request $request)
     {
@@ -144,7 +145,7 @@ public function index()
         $ticket->name = $request->name;
         $ticket->description = $request->description;
         $ticket->user_id = $request->user_id;
-        // $ticket->step = $request->step;
+        $ticket->step = $request->step;
         // $ticket->team = $request->team;
 
 
@@ -192,4 +193,24 @@ public function index()
     {
         //
     }
+
+    public function editTicketByAdmin(Request $request, $id)
+    {
+        $ticket = Ticket::findOrFail($id);
+        
+        // update the ticket data with the data from the request
+        $ticket->update($request->all());
+        
+        // return the updated ticket
+        return response()->json($ticket, 200);
+    }
+    
+
+
+
+
+
+
+
+
 }

@@ -25,9 +25,12 @@ class TicketResource extends JsonResource
             // 'tickets_count' => $this->count(),
             'id' => $this->id,
             'subject' => $this->subject,
+            'type' => $this->type,
+
             'user_id' => $this->user_id,
             'title' => $this->title,
             'description' => $this->description,
+            'tag' => $this->tag,
             'photo' => url($this->photo_url),
             'step' => $this->step,
             'created_at' => $this->created_at,
@@ -38,6 +41,7 @@ class TicketResource extends JsonResource
             'phone' => $this->user->phone, 
             'user_details' => new UserResource($this->user),
             'assigned_to'=> $this->assignedUserName(),
+
 
 
         ];

@@ -7,7 +7,7 @@ import { useStateContext } from '../../contexts/ContextProvider';
 
 
 
-export default function ({ ticketId }) {
+export default function Ticket ({ ticketId }) {
 const [body, setBody] = useState('');
 const {user,  setUser} = useStateContext();
 const [comment, setComment] = useState([]);
@@ -53,6 +53,7 @@ useEffect(() => {
     });
 }, []);
 
+console.log(tickets);
 
 const onSubmit = async (ev) => {
   ev.preventDefault();
@@ -80,7 +81,8 @@ const onSubmit = async (ev) => {
   } catch (error) {
     console.error(error);
   } finally {
-window.location.reload()  }
+window.location.reload()  
+}
 };
 
 
@@ -159,7 +161,7 @@ useEffect(() => {
   <button onClick={handleDelete} className="mt-2 bg-fuchsia-600 text-white py-2 px-4 rounded-lg hover:bg-black w-full mb-4">Clôturer le tickets</button>
   <hr className="h-px mt-4 bg-black border-0 "/>
 
-
+{tickets.assigned_to && (
   <div className='mt-6'>
   <h1 className='font-bold mt-2 items-center'>Assigné à :</h1>
   <div className="flex items-center mb-2 mt-4">
@@ -168,12 +170,18 @@ useEffect(() => {
 
 
     <div>
-      <h1 className="text-lg font-medium">{user.name}</h1>
-      <p className="text-gray-500 text-sm">{user.email}</p>
+      <h1 className="text-lg font-medium">{tickets.assigned_to && tickets.assigned_to.name}</h1>
+      <p className="text-gray-500 text-sm">{tickets.assigned_to && tickets.assigned_to.email}</p>
 
     </div>
   </div>
 </div>
+)
+}
+{!tickets.assigned_to && (
+  <b className='m-4 flex text-center justify-center'>N'a pas encore été assigné</b>
+)}
+
 
 
 <div className='mt-6'>
@@ -260,7 +268,9 @@ useEffect(() => {
 <hr className="h-px m-9 bg-slate-200  "/>
     <form >
     {error && <p className='text-red-600'>{error}</p>}
+    {tickets.step !== 'RÉSOLU' && tickets.step !== 'ANNULÉ' && (
 
+<div>
   <div className="flex items-center ml-9">
     <svg className="mr-2" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
       <path d="M843.282963 870.115556c-8.438519-140.515556-104.296296-257.422222-233.908148-297.14963C687.881481 536.272593 742.4 456.533333 742.4 364.088889c0-127.241481-103.158519-230.4-230.4-230.4S281.6 236.847407 281.6 364.088889c0 92.444444 54.518519 172.183704 133.12 208.877037-129.611852 39.727407-225.46963 156.634074-233.908148 297.14963-0.663704 10.903704 7.964444 20.195556 18.962963 20.195556l0 0c9.955556 0 18.299259-7.774815 18.962963-17.73037C227.745185 718.506667 355.65037 596.385185 512 596.385185s284.254815 122.121481 293.357037 276.195556c0.568889 9.955556 8.912593 17.73037 18.962963 17.73037C835.318519 890.311111 843.946667 881.019259 843.282963 870.115556zM319.525926 364.088889c0-106.287407 86.186667-192.474074 192.474074-192.474074s192.474074 86.186667 192.474074 192.474074c0 106.287407-86.186667 192.474074-192.474074 192.474074S319.525926 470.376296 319.525926 364.088889z" />
@@ -274,11 +284,7 @@ useEffect(() => {
     <button onClick={onSubmit} className="bg-fuchsia-600 hover:bg-black text-white font-bold py-2 px-4 rounded mr-2" type="submit">Envoyer</button>
     <label className="flex items-center">
   
-  {/* <input 
-          type="file" 
-          onChange={(e) => setSelectedFile(e.target.files[0])} 
-          className="w-full px-4 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:shadow-outline-blue focus:border-blue-300"
-        /> */}
+  
         <label className="bg-gray-100 hover:bg-gray-200 rounded-md py-2 px-4 cursor-pointer">
     <input accept="image/*"  onChange={(e) => setSelectedFile(e.target.files[0])}  type="file" className="hidden" />
     Ajouter un fichier
@@ -288,6 +294,8 @@ useEffect(() => {
 </label>
         
         </div>
+</div>
+)}
 
         </form>
         <hr className="h-px mt-9 ml-9 mb-4 bg-slate-200 border-0 "/>

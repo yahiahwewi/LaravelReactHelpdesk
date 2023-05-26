@@ -3,6 +3,8 @@ import { useStateContext } from '../../contexts/ContextProvider';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import axiosClient from '../../axios-client';
+import NoAccess from './NoAccess';
+import Loading from './Loading';
 
 export default function AdminDashboard() {
     // const {user, token, setUser, setToken, notification} = useStateContext();
@@ -11,7 +13,7 @@ export default function AdminDashboard() {
     const [isLoading, setIsLoading] = useState(true);
     const [teams, setTeams] = useState(['']);
 
-
+ 
     // useEffect(() => {
     //   setIsLoading(true);
     //   axiosClient.get(`/teams/1/tickets`)
@@ -23,16 +25,29 @@ export default function AdminDashboard() {
     //     });
     // }, []);
 
+    useEffect(() => {
+      axiosClient.get('/user')
+        .then(({data}) => {
+           setUser(data)
+        })
+    }, [])
 
+   
 
     useEffect(() => {
+            setIsLoading(true);
+
       setIsLoading(true);
       axiosClient.get(`/allteams`)
         .then(({ data }) => {
           setTeams(data.data);
+       setIsLoading(false);
+
         })
         .catch((error) => {
           console.log(error);
+          setIsLoading(false);
+
         });
     }, []);
 
@@ -41,15 +56,12 @@ export default function AdminDashboard() {
 
 
     useEffect(() => {
-      setIsLoading(true);
       axiosClient.get(`/ticketsall`)
         .then(({ data }) => {
           setTickets(data);
-          setIsLoading(false);
         })
         .catch((error) => {
           console.log(error);
-          setIsLoading(false);
         });
     }, []);
   
@@ -57,24 +69,42 @@ export default function AdminDashboard() {
 
 
    
-
-
+    if (isLoading) {
+      return (
+    <Loading/>
+      );
+    } else if (!user.role) {
+      return <NoAccess/>
+    ;
+    } else {
+    
     
   return (
+
+<div>
+
+
+
+
 <div className="bg-[#f6f7fb] h-full w-full">
 
-<div className="container mx-auto  py-8">
-<div className=' bg-[#d6c5c5] rounded-xl shadow-xl h-11 w-44 mx-auto '>
-<div className='flex'>
-<Link to="/teams" className="pt-2 ml-4 text-white font-bold">Équipes</Link>
-<Link to="/types" className="pt-2 ml-9 text-white font-bold">Types</Link>
+<div class="flex items-center justify-center ">
+  <div className="container w-auto ">
+    <div className="bg-[#d6c5c5] text-center justify-center rounded-b-lg shadow-xl h-11 w-auto mx-auto">
+      <div className="flex-initial pt-2">
+        <Link to="/teamlist" className="pt-2 ml-4 text-white font-bold">Départements</Link>
+        <Link to="/support" className="pt-2 ml-4 text-white font-bold">Support</Link>
+        <Link to="/userslist" className="pt-2 ml-4 text-white font-bold">Utilisateurs</Link>
+        <Link to="/config" className="pt-2 ml-4 mr-4 text-white font-bold">Configuration</Link>
+      </div>
+    </div>
+  </div>
 </div>
-</div>  
-</div> 
+
 
   <div className="container mx-auto px-4 py-4">
 
-    <div className=' bg-white rounded-xl shadow-xl h-64 w-3/4 mx-auto '>
+    <div className=' bg-white  -xl h-64 w-3/4 mx-auto rounded-2xl border-t-4 mt-8 border-[#d6c5c5]'>
     
 <h1 className='text-2xl ml-12  font-semibold mb-6 mt-4  '>Vue d'ensemble</h1> 
 <hr />  
@@ -90,7 +120,7 @@ export default function AdminDashboard() {
 </th>
       
       <th className="px-1 py-1 bg-[#f6f7fb] text-black border-4 border-white text-center relative">{tickets.is_urgent}<br/>
-  <small className='mt-8'>Urgent</small>
+  <small className='m-8'>Urgent</small>
   <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Icon" className="absolute top-1 right-6 h-3 w-3 mt-1 mr-1"/>
   <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Icon" className="absolute top-1 right-2 h-3 w-3 mt-1 mr-1"/>
   <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Icon" className="absolute top-1 right-10 h-3 w-3 mt-1 mr-1"/>
@@ -111,10 +141,10 @@ export default function AdminDashboard() {
     </div>
 
 
-    <div className="bg-white   p-6 w-3/4 mx-auto mt-8 rounded-xl shadow-xl">
+    <div className="bg-[#ffffff]   p-6 w-3/4 mx-auto mb-4 rounded-2xl border-t-4 mt-8 border-[#d6c5c5]">
   {teams.map((team) => (
-    <div key={team.id}>
-      <h2 className="text-2xl ml-8 font-semibold text-left">Équipe : {team.title}</h2>
+    <div key={team.id} className='mb-14'>
+      <h2 className="text-2xl ml-8 font-semibold text-left">Départements : {team.title}</h2>
       <div className="flex items-center justify-start ml-8 mb-8">
         <p className="text-gray-700 ml-1">Email: {team.email}</p>
       </div>
@@ -136,9 +166,9 @@ export default function AdminDashboard() {
           <p className="text-sm font-medium text-gray-700">échoués</p>
         </div>
       </div>
-      <div className='text-center'>
+      {/* <div className='text-center'>
         <button className="bg-[#017e84] hover:bg-[#335455] text-white px-4 py-2 mb-4 mt-6">TICKETS</button>
-      </div>
+      </div> */}
     </div>
   ))}
 </div>
@@ -149,5 +179,8 @@ export default function AdminDashboard() {
     </div>
     
     </div>
+
+    </div>
   )
+}
 }

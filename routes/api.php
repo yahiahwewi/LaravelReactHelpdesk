@@ -39,6 +39,71 @@ use App\Models\Team;
 
 
 ////////////////////// ADMIN API'S /////////////////////////////
+
+// delete ticket by id 
+Route::delete('/deleteticket/{id}', [TicketController::class, 'deleteTicket']);
+
+
+
+
+
+// EDIT TICKET BY ADMIN
+Route::put('/editTicketByAdmin/{id}', [TicketController::class,"editTicketByAdmin"]);
+
+
+
+
+
+
+
+
+// GET USER COMMENTS FOR ADMIN
+Route::get('/comments2/{ticket_id}',  [CommentController::class, 'getCommentsByUserAndTicket']);
+
+
+
+
+// //////////////ADD SUPPORT USER
+Route::post('/addsupport', [UserController::class,'addSupport']);
+
+// get only users
+Route::get('/onlyusers', [UserController::class,'onlyusers']);
+
+// UPDATE SUPPORT DETAILS 
+Route::put('/supportupdate/{id}', [UserController::class, 'supportupdate']);
+
+
+
+
+
+// LIST OF SUPPORT
+
+Route::get('/supportlist', function () {
+    return UserResource::collection(User::where('role', 1)->get());
+});
+
+
+
+// SUPPORT BY ID 
+Route::get('/support/{id}', function ($id) {
+    $user = User::find($id);
+    if (!$user) {
+        return response()->json(['error' => 'User not found'], 404); 
+    }
+    return new UserResource($user);
+});
+
+
+
+
+Route::delete('/deleteuser/{id}', [UserController::class,'destroy']);
+
+
+
+
+
+
+
 // ADD TEAM
 Route::get('teams/{id}/tickets', function ($id) {
     $team = Team::findOrFail($id);
@@ -54,6 +119,8 @@ Route::get('teams/{id}/tickets', function ($id) {
 });
 
 
+// DELETE TEAM
+Route::delete('/deleteTeam/{id}', [TeamsController::class,'destroy']);
 
 
 
@@ -64,8 +131,11 @@ Route::post('/addteam', [TeamsController::class,'store']);
 // GET TEAMS 
 Route::get('/allteams', [TeamsController::class,'index']);
 
+// GET TEAMS BY ID 
+Route::get('/teams/{id}', [TeamsController::class, 'getTeamsById']);
 
-
+// UPDATE TEAM 
+Route::put('/UpdateTeam/{id}', [TeamsController::class ,'updateTeam']);
 
 
 
@@ -120,8 +190,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/tickets/{id}', [TicketController::class, 'deleteTicket']);
 
     // get 1 ticket of auth user by ticket_id 
-    Route::get('/userTickets/{ticketid}', [TicketController::class, 'getTicketByid'])
-    ->where('ticketid', '[0-999]+'); // Only match numeric IDs
+    // Route::get('/userTickets/{ticketid}', [TicketController::class, 'getTicketByid'])
+    // ->where('ticketid', '[0-999]+'); // Only match numeric IDs
 
     // add a comment to ticket from auth user 
     Route::post('/addComment/{ticketid}', [CommentController::class, 'store']);
@@ -134,6 +204,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // for test : get all comments
 Route::get('/comments', [CommentController::class, 'index']);
+
+
 
 // login and signup
 Route::post('/signup', [AuthController::class, 'signup']);

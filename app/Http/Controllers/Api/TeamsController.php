@@ -12,21 +12,39 @@ class TeamsController extends Controller
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-    
     /**
      * Display a listing of the resource.
      */
+
+     
+     public function updateTeam(Request $request, $id)
+     {
+         $team = Team::findOrFail($id);
+         $team->update($request->all());
+         return response()->json($team, 200);
+
+        //  $team->title = $request->input('title');
+        //  $team->description = $request->input('description');
+        //  $team->email = $request->input('email');
+        //  $team->save();
+        //  return new TeamResource($team);
+     }
+     
+
+
+
+
+
+
+
+     public function getTeamsById($id)
+     {
+         $team = Team::findOrFail($id);
+         return new TeamResource($team);
+     }
+     
+
+
     public function index()
     {
         $teams = Team::all();

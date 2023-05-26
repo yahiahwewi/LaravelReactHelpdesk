@@ -14,14 +14,14 @@ const [noerrors, setnoErrors] = useState(false);
 const {setUser, setToken} = useStateContext();
 
   const onSubmit = (ev) => {
-    ev.preventDefault()
+    ev.preventDefault() 
     const payload={
       name: nameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
       password_confirmation: passwordConfirmationRef.current.value,
       poste: "Client",
-      role:true,
+      role:false,
 
     }
 
@@ -30,7 +30,7 @@ axiosClient.post('/signup', payload)
 
   setUser(data.user)
   setToken(data.token);
-  console.log(user.id)
+  // console.log(user.id)
 
 // if (response.status === 200) {
 //   setTimeout(() => {

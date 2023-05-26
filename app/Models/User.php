@@ -28,7 +28,9 @@ class User extends Authenticatable
         'postal_code',
         'country',
         'poste',
-        'role'
+        'role',
+        'team_id',
+        "team_title"
     ];
 
     /**
